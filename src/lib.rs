@@ -32,19 +32,48 @@ pub fn parse_satoshis(input: &str) -> Result<u64, String> {
     // TODO: Parse input string to u64, return error string if invalid
     match input.parse::<u64>() {
         Ok(value) => Ok(value),
-        Err(_) => Err("Invalid satoshis input".to_string()),
+        Err(_) => Err("Invalid satoshi amount".to_string()),
     }
 }
 
-// pub enum ScriptType {
-//     P2PKH,
-//     P2WPKH,
-//     Unknown,
-// }
+pub enum ScriptType {
+    P2PKH,
+    P2WPKH,
+    Unknown,
+}
 
-// pub fn classify_script(script: &[u8]) -> ScriptType {
-//     // TODO: Match script pattern and return corresponding ScriptType
-// }
+fn test_script_classification() {
+    assert!(matches!(
+        classify_script(&[0x76, 0xa9, 0x14]),
+        ScriptType::P2PKH
+    ));
+    assert!(matches!(
+        classify_script(&[0x00, 0x14, 0xff]),
+        ScriptType::P2WPKH
+    ));
+    assert!(matches!(
+        classify_script(&[0xab, 0xcd]),
+        ScriptType::Unknown
+    ));
+}
+
+
+pub fn classify_script(script: &[u8]) -> ScriptType {
+    if script.len() >= 3 &&
+       script[0] == 0x76 &&
+       script[1] == 0xa9 &&
+       script[2] == 0x14 {
+        return ScriptType::P2PKH;
+    }
+    if script.len() >= 3 &&
+       script[0] == 0x00 &&
+       script[1] == 0x14 {
+        return ScriptType::P2WPKH;
+    }
+    ScriptType::Unknown
+}
+
+
 
 // // TODO: complete Outpoint tuple struct
 // pub struct Outpoint();
