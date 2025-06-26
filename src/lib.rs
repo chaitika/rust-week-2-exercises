@@ -60,9 +60,18 @@ pub fn classify_script(script: &[u8]) -> ScriptType {
 // TODO: complete Outpoint tuple struct
 pub struct Outpoint(pub String, pub u32);
 
-// pub fn read_pushdata(script: &[u8]) -> &[u8] {
-//     // TODO: Return the pushdata portion of the script slice (assumes pushdata starts at index 2)
+// #[test]
+// fn test_script_slice() {
+//     let mut script = vec![0x00, 0x14];
+//     script.extend(vec![0u8; 20]);
+//     let data = read_pushdata(&script);
+//     assert_eq!(data.len(), 20);
 // }
+
+pub fn read_pushdata(script: &[u8]) -> &[u8] {
+    // TODO: Return the pushdata portion of the script slice (assumes pushdata starts at index 2)
+    &script[2..]
+}
 
 // pub trait Wallet {
 //     fn balance(&self) -> u64;
