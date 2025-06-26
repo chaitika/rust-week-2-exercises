@@ -60,32 +60,25 @@ pub fn classify_script(script: &[u8]) -> ScriptType {
 // TODO: complete Outpoint tuple struct
 pub struct Outpoint(pub String, pub u32);
 
-// #[test]
-// fn test_script_slice() {
-//     let mut script = vec![0x00, 0x14];
-//     script.extend(vec![0u8; 20]);
-//     let data = read_pushdata(&script);
-//     assert_eq!(data.len(), 20);
-// }
-
 pub fn read_pushdata(script: &[u8]) -> &[u8] {
     // TODO: Return the pushdata portion of the script slice (assumes pushdata starts at index 2)
     &script[2..]
 }
 
-// pub trait Wallet {
-//     fn balance(&self) -> u64;
-// }
+pub trait Wallet {
+    fn balance(&self) -> u64;
+}
 
-// pub struct TestWallet {
-//     pub confirmed: u64,
-// }
+pub struct TestWallet {
+    pub confirmed: u64,
+}
 
-// impl Wallet for TestWallet {
-//     fn balance(&self) -> u64 {
-//         // TODO: Return the wallet's confirmed balance
-//     }
-// }
+impl Wallet for TestWallet {
+    fn balance(&self) -> u64 {
+        // TODO: Return the wallet's confirmed balance
+        self.confirmed
+    }
+}
 
 // pub fn apply_fee(balance: &mut u64, fee: u64) {
 //     // TODO: Subtract fee from mutable balance reference
