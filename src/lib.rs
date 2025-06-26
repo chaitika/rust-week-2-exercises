@@ -42,22 +42,6 @@ pub enum ScriptType {
     Unknown,
 }
 
-fn test_script_classification() {
-    assert!(matches!(
-        classify_script(&[0x76, 0xa9, 0x14]),
-        ScriptType::P2PKH
-    ));
-    assert!(matches!(
-        classify_script(&[0x00, 0x14, 0xff]),
-        ScriptType::P2WPKH
-    ));
-    assert!(matches!(
-        classify_script(&[0xab, 0xcd]),
-        ScriptType::Unknown
-    ));
-}
-
-
 pub fn classify_script(script: &[u8]) -> ScriptType {
     if script.len() >= 3 &&
        script[0] == 0x76 &&
@@ -73,10 +57,8 @@ pub fn classify_script(script: &[u8]) -> ScriptType {
     ScriptType::Unknown
 }
 
-
-
-// // TODO: complete Outpoint tuple struct
-// pub struct Outpoint();
+// TODO: complete Outpoint tuple struct
+pub struct Outpoint(pub String, pub u32);
 
 // pub fn read_pushdata(script: &[u8]) -> &[u8] {
 //     // TODO: Return the pushdata portion of the script slice (assumes pushdata starts at index 2)
