@@ -89,18 +89,28 @@ pub fn move_txid(txid: String) -> String {
     format!("txid: {}", txid)
 }
 
-// // TODO: Add necessary derive traits
-// pub enum Opcode {
-//     OpChecksig,
-//     OpDup,
-//     OpInvalid,
-// }
+// TODO: Add necessary derive traits
+#[derive(Debug, PartialEq)]
+pub enum Opcode {
+    OpChecksig,
+    OpDup,
+    OpInvalid,
 
-// impl Opcode {
-//     pub fn from_byte(byte: u8) -> Result<Self, String> {
-//         // TODO: Implement mapping from byte to Opcode variant
-//     }
-// }
+}
+
+impl Opcode {
+    pub fn from_byte(byte: u8) -> Result<Self, String> {
+        // TODO: Implement mapping from byte to Opcode variant
+        match byte {
+            0xac => Ok(Opcode::OpChecksig),
+            0x76 => Ok(Opcode::OpDup),
+            _ => {
+                let err_msg = format!("Invalid opcode: 0x{:02x}", byte);
+                Err(err_msg)
+            }
+        }
+    }
+}
 
 // // TODO: Add necessary derive traits
 // pub struct UTXO {
