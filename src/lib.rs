@@ -84,9 +84,10 @@ pub fn apply_fee(balance: &mut u64, fee: u64) {
     *balance -= fee;
 }
 
-// pub fn move_txid(txid: String) -> String {
-//     // TODO: Return formatted string including the txid for display or logging
-// }
+pub fn move_txid(txid: String) -> String {
+    // TODO: Return formatted string including the txid for display or logging
+    format!("txid: {}", txid)
+}
 
 // // TODO: Add necessary derive traits
 // pub enum Opcode {
