@@ -43,15 +43,10 @@ pub enum ScriptType {
 }
 
 pub fn classify_script(script: &[u8]) -> ScriptType {
-    if script.len() >= 3 &&
-       script[0] == 0x76 &&
-       script[1] == 0xa9 &&
-       script[2] == 0x14 {
+    if script.len() >= 3 && script[0] == 0x76 && script[1] == 0xa9 && script[2] == 0x14 {
         return ScriptType::P2PKH;
     }
-    if script.len() >= 3 &&
-       script[0] == 0x00 &&
-       script[1] == 0x14 {
+    if script.len() >= 3 && script[0] == 0x00 && script[1] == 0x14 {
         return ScriptType::P2WPKH;
     }
     ScriptType::Unknown
@@ -95,7 +90,6 @@ pub enum Opcode {
     OpChecksig,
     OpDup,
     OpInvalid,
-
 }
 
 impl Opcode {
@@ -112,13 +106,15 @@ impl Opcode {
     }
 }
 
-// // TODO: Add necessary derive traits
-// pub struct UTXO {
-//     pub txid: Vec<u8>,
-//     pub vout: u32,
-//     pub value: u64,
-// }
+// TODO: Add necessary derive traits
+#[derive(Debug, Clone, PartialEq)]
+pub struct UTXO {
+    pub txid: Vec<u8>,
+    pub vout: u32,
+    pub value: u64,
+}
 
-// pub fn consume_utxo(utxo: UTXO) -> UTXO {
-//     // TODO: Implement UTXO consumption logic (if any)
-// }
+pub fn consume_utxo(utxo: UTXO) -> UTXO {
+    // TODO: Implement UTXO consumption logic (if any)
+    utxo
+}
